@@ -1,21 +1,15 @@
 {
-  "name": "pancake-info-api",
+  "name": "taalswap-info-api",
   "version": "1.0.0",
-  "description": "Serverless API implementation for PancakeSwap on-chain data query.",
-  "repository": "git@github.com:pancakeswap/pancake-info-api.git",
-  "author": "PancakeSwap",
+  "description": "Serverless API implementation for TaalSwap on-chain data query.",
+  "repository": "https://github.com/taalswap/taalswap-info-api.git",
+  "author": "TaalSwap",
   "license": "MIT",
   "scripts": {
     "format:check": "prettier --check '*/**/*.{js,ts}'",
     "format:write": "prettier --write '*/**/*.{js,ts}'",
     "lint": "eslint '*/**/*.{js,ts}'",
     "codegen": "graphql-codegen --config utils/apollo/codegen.yml"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn format:write",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "dependencies": {
     "@apollo/client": "^3.3.13",
