@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { BLACKLIST } from "./constants/blacklist";
 import { client } from "./apollo/client";
-import { TOP_PAIRS, PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS } from "./apollo/queries";
+import { PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS, TOP_PAIRS } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
   PairsVolumeQuery,
@@ -9,7 +9,7 @@ import {
   TokenQuery,
   TokenQueryVariables,
   TopPairsQuery,
-  TopPairsQueryVariables,
+  TopPairsQueryVariables
 } from "./generated/subgraph";
 
 const TOP_PAIR_LIMIT = 1000;
@@ -25,13 +25,13 @@ export interface MappedDetailedPair extends Pair {
 export async function getTokenByAddress(address: string): Promise<Token> {
   const {
     data: { token },
-    errors: tokenErrors,
+    errors: tokenErrors
   } = await client.query<TokenQuery, TokenQueryVariables>({
     query: TOKEN_BY_ADDRESS,
     variables: {
-      id: address,
+      id: address
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "cache-first"
   });
 
   if (tokenErrors && tokenErrors.length > 0) {
@@ -43,6 +43,7 @@ export async function getTokenByAddress(address: string): Promise<Token> {
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const epochSecond = Math.round(new Date().getTime() / 1000);
+  console.log(epochSecond - 86400);
   const firstBlock = await getBlockFromTimestamp(epochSecond - 86400);
 
   if (!firstBlock) {
@@ -51,14 +52,14 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
 
   const {
     data: { pairs },
-    errors: topPairsErrors,
+    errors: topPairsErrors
   } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
     query: TOP_PAIRS,
     variables: {
       limit: TOP_PAIR_LIMIT,
-      excludeTokenIds: BLACKLIST,
+      excludeTokenIds: BLACKLIST
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "cache-first"
   });
 
   if (topPairsErrors && topPairsErrors.length > 0) {
@@ -67,15 +68,15 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
 
   const {
     data: { pairVolumes },
-    errors: yesterdayVolumeErrors,
+    errors: yesterdayVolumeErrors
   } = await client.query<PairsVolumeQuery, PairsVolumeQueryVariables>({
     query: PAIRS_VOLUME_QUERY,
     variables: {
       limit: TOP_PAIR_LIMIT,
       pairIds: pairs.map((pair) => pair.id),
-      blockNumber: +firstBlock,
+      blockNumber: +firstBlock
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "cache-first"
   });
 
   if (yesterdayVolumeErrors && yesterdayVolumeErrors.length > 0) {
@@ -88,7 +89,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     }>((memo, pair) => {
       memo[pair.id] = {
         volumeToken0: new BigNumber(pair.volumeToken0),
-        volumeToken1: new BigNumber(pair.volumeToken1),
+        volumeToken1: new BigNumber(pair.volumeToken1)
       };
       return memo;
     }, {}) ?? {};
@@ -111,7 +112,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
           previous24hVolumeToken1:
             pair.volumeToken1 && yesterday?.volumeToken1
               ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
-              : new BigNumber(pair.volumeToken1).toString(),
+              : new BigNumber(pair.volumeToken1).toString()
         };
       }
     ) ?? []
