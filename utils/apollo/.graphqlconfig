@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "PancakeSwap Exchange LITE": {
-        "url": "https://api.thegraph.com/subgraphs/name/pancakeswap/exchange",
+        "url": "https://api.thegraph.com/subgraphs/name/taalswap/exchange",
         "headers": {
           "user-agent": "JS GraphQL"
         },
