@@ -22,6 +22,14 @@ export const TOKEN_BY_ADDRESS = gql`
   }
 `;
 
+export const GET_TVL = gql`
+    query PancakeFactory($limit: Int!) {
+        pancakeFactories(first: $limit) {
+            totalVolumeUSD
+        }
+    }
+`;
+
 export const TOP_PAIRS = gql`
   fragment TokenInfo on Token {
     id

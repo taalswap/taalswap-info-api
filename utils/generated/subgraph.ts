@@ -56,6 +56,7 @@ export interface Factory {
   readonly __typename?: 'Factory';
   readonly id: Scalars['ID'];
   readonly pairCount: Scalars['BigInt'];
+  readonly totalVolumeUSD: Scalars['BigDecimal'];
 }
 
 export interface Factory_Filter {

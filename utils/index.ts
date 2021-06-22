@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { BLACKLIST } from "./constants/blacklist";
 import { client } from "./apollo/client";
-import { PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS, TOP_PAIRS } from "./apollo/queries";
+import { GET_TVL, PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS, TOP_PAIRS } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
   PairsVolumeQuery,
@@ -20,6 +20,17 @@ export interface MappedDetailedPair extends Pair {
   price: string;
   previous24hVolumeToken0: string;
   previous24hVolumeToken1: string;
+}
+
+export async function getTVL(): Promise<string | undefined> {
+  const result = await client.query({
+    query: GET_TVL,
+    variables: {
+      limit: 1,
+    },
+    fetchPolicy: "network-only",
+  });
+  return result?.data?.pancakeFactories?.[0]?.totalVolumeUSD;
 }
 
 export async function getTokenByAddress(address: string): Promise<Token> {

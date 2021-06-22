@@ -15,6 +15,17 @@ type Factory {
     pairCount: BigInt!
 }
 
+type PancakeFactory {
+    id: ID!
+    totalPairs: BigInt!
+    totalTransactions: BigInt!
+    totalVolumeUSD: BigDecimal!
+    totalVolumeBNB: BigDecimal!
+    untrackedVolumeUSD: BigDecimal!
+    totalLiquidityUSD: BigDecimal!
+    totalLiquidityBNB: BigDecimal!
+}
+
 type Pair {
     id: ID!
     reserve0: BigDecimal!
@@ -73,6 +84,13 @@ type Query {
         block: Block_height,
         id: ID!
     ): Factory
+    pancakeFactories(
+        "asdf"
+        block: Block_height,
+        first: Int = 100,
+        orderDirection: OrderDirection,
+        skip: Int = 0
+    ): [PancakeFactory!]!
     pair(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
