@@ -30,7 +30,7 @@ export async function getTVL(): Promise<string | undefined> {
     },
     fetchPolicy: "network-only",
   });
-  return result?.data?.pancakeFactories?.[0]?.totalVolumeUSD;
+  return result?.data?.pancakeFactories?.[0]?.totalLiquidityUSD;
 }
 
 export async function getTokenByAddress(address: string): Promise<Token> {
