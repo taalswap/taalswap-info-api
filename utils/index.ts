@@ -26,11 +26,11 @@ export async function getTVL(): Promise<string | undefined> {
   const result = await client.query({
     query: GET_TVL,
     variables: {
-      limit: 1,
+      limit: 1
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: "network-only"
   });
-  return result?.data?.pancakeFactories?.[0]?.totalLiquidityUSD;
+  return result?.data?.taalFactories?.[0]?.totalLiquidityUSD;
 }
 
 export async function getTokenByAddress(address: string): Promise<Token> {

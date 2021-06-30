@@ -1,10 +1,10 @@
 {
-  "name": "Binance Smart Chain Blocks",
+  "name": "Ethereum Blocks",
   "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
-      "Binance Smart Chain Blocks": {
-        "url": "https://api.thegraph.com/subgraphs/name/taalswap/blocks",
+      "Ethereum Blocks": {
+        "url": "https://api.thegraph.com/subgraphs/name/taalswap/blocks-ropsten",
         "headers": {
           "user-agent": "JS GraphQL"
         },

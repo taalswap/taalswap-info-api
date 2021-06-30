@@ -5,11 +5,11 @@ and volume information. All information is fetched from the underlying subgraphs
 
 ## v1 Documentation
 
-The documentation of the endpoints, for PancakeSwap v1, can be found [here](v1-documentation.md).
+The documentation of the endpoints, for TaalSwap v1, can be found [here](v1-documentation.md).
 
 ## v2 Documentation
 
-The documentation of the endpoints, for PancakeSwap v2, can be found [here](v2-documentation.md).
+The documentation of the endpoints, for TaalSwap v2, can be found [here](v2-documentation.md).
 
 ## Development
 

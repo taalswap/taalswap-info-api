@@ -9,11 +9,11 @@ interface ReturnShape {
     base_volume: string;
     quote_volume: string;
     liquidity: string;
-    liquidity_BNB: string;
+    liquidity_ETH: string;
   };
 }
 
-export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
+export default async function(req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const topPairs = await getTopPairs();
 
@@ -26,7 +26,7 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
         base_volume: pair.volumeToken0,
         quote_volume: pair.volumeToken1,
         liquidity: pair.reserveUSD,
-        liquidity_BNB: pair.reserveBNB,
+        liquidity_ETH: pair.reserveETH
       };
 
       return accumulator;

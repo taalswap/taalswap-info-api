@@ -3,7 +3,7 @@ import { getTokenByAddress } from "../../utils";
 import { return200, return400, return500 } from "../../utils/response";
 import { getAddress } from "@ethersproject/address";
 
-export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
+export default async function(req: VercelRequest, res: VercelResponse): Promise<void> {
   if (
     !req.query.address ||
     typeof req.query.address !== "string" ||
@@ -23,8 +23,8 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
         name: token?.name,
         symbol: token?.symbol,
         price: token?.derivedUSD,
-        price_BNB: token?.derivedBNB,
-      },
+        price_ETH: token?.derivedETH
+      }
     });
   } catch (error) {
     return500(res, error);
