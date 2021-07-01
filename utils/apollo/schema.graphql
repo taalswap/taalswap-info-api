@@ -26,6 +26,19 @@ type PancakeFactory {
     totalLiquidityBNB: BigDecimal!
 }
 
+type PancakeDayData {
+    id: ID!
+    date: Int!
+    dailyVolumeBNB: BigDecimal!
+    dailyVolumeUSD: BigDecimal!
+    dailyVolumeUntracked: BigDecimal!
+    totalVolumeBNB: BigDecimal!
+    totalLiquidityBNB: BigDecimal!
+    totalVolumeUSD: BigDecimal!
+    totalLiquidityUSD: BigDecimal!
+    totalTransactions: BigInt!
+}
+
 type Pair {
     id: ID!
     reserve0: BigDecimal!
@@ -91,6 +104,13 @@ type Query {
         orderDirection: OrderDirection,
         skip: Int = 0
     ): [PancakeFactory!]!
+    pancakeDayDatas(
+        "pancake day data"
+        first: Int = 100,
+        orderBy: PancakeDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0
+    ): [PancakeDayData!]!
     pair(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -262,6 +282,11 @@ enum PairSimple_orderBy {
     id
     token0
     token1
+}
+
+enum PancakeDayData_orderBy {
+    id
+    date
 }
 
 enum Pair_orderBy {
