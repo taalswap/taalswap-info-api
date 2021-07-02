@@ -32,7 +32,7 @@ export const GET_TVL = gql`
 
 export const GET_TRX = gql`
     query PancakeDayData($limit: Int!) {
-        pancakeDayDatas(
+        taalDayDatas(
             first: $limit
             orderBy: date
             orderDirection: desc
@@ -44,7 +44,7 @@ export const GET_TRX = gql`
 
 export const GET_VOLUME_USD = gql`
     query PancakeDayData($limit: Int!) {
-        pancakeDayDatas(
+        taalDayDatas(
             first: $limit
             orderBy: date
             orderDirection: desc

@@ -104,7 +104,7 @@ type Query {
         orderDirection: OrderDirection,
         skip: Int = 0
     ): [TaalFactory!]!
-    pancakeDayDatas(
+    taalDayDatas(
         "taalswap day data"
         first: Int = 100,
         orderBy: TaalDayData_orderBy,
