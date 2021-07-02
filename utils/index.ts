@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { BLACKLIST } from "./constants/blacklist";
 import { client } from "./apollo/client";
-import { GET_TVL, PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS, TOP_PAIRS } from "./apollo/queries";
+import { GET_TRX, GET_TVL, GET_VOLUME_USD, PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS, TOP_PAIRS } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
   PairsVolumeQuery,
@@ -31,6 +31,29 @@ export async function getTVL(): Promise<string | undefined> {
     fetchPolicy: "network-only"
   });
   return result?.data?.taalFactories?.[0]?.totalLiquidityUSD;
+}
+
+export async function getOneDayTransactionCnt(): Promise<number | undefined> {
+  const result = await client.query({
+    query: GET_TRX,
+    variables: {
+      limit: 2,
+    },
+    fetchPolicy: "cache-first",
+  });
+  const dayData = result?.data?.pancakeDayDatas;
+  return dayData[0].totalTransactions - dayData[1].totalTransactions;
+}
+
+export async function getOneDayVolumeUSD(): Promise<number | undefined> {
+  const result = await client.query({
+    query: GET_VOLUME_USD,
+    variables: {
+      limit: 1,
+    },
+    fetchPolicy: "cache-first",
+  });
+  return result?.data?.pancakeDayDatas[0].dailyVolumeUSD;
 }
 
 export async function getTokenByAddress(address: string): Promise<Token> {

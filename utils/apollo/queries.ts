@@ -30,6 +30,30 @@ export const GET_TVL = gql`
     }
 `;
 
+export const GET_TRX = gql`
+    query PancakeDayData($limit: Int!) {
+        pancakeDayDatas(
+            first: $limit
+            orderBy: date
+            orderDirection: desc
+        ) {
+            totalTransactions
+        }
+    }
+`;
+
+export const GET_VOLUME_USD = gql`
+    query PancakeDayData($limit: Int!) {
+        pancakeDayDatas(
+            first: $limit
+            orderBy: date
+            orderDirection: desc
+        ) {
+            dailyVolumeUSD
+        }
+    }
+`;
+
 export const TOP_PAIRS = gql`
     fragment TokenInfo on Token {
         id
