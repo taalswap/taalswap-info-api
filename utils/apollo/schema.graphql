@@ -13,6 +13,7 @@ type Bundle {
 type Factory {
     id: ID!
     pairCount: BigInt!
+    totalVolumeUSD: BigDecimal!
 }
 
 type TaalFactory {

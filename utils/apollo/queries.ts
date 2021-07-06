@@ -31,7 +31,7 @@ export const GET_TVL = gql`
 `;
 
 export const GET_TRX = gql`
-    query TaalDayData($limit: Int!) {
+    query TaalDayData1($limit: Int!) {
         taalDayDatas(
             first: $limit
             orderBy: date
@@ -43,7 +43,7 @@ export const GET_TRX = gql`
 `;
 
 export const GET_VOLUME_USD = gql`
-    query TaalDayData($limit: Int!) {
+    query TaalDayData2($limit: Int!) {
         taalDayDatas(
             first: $limit
             orderBy: date

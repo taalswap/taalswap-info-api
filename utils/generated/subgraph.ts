@@ -349,6 +349,7 @@ export interface Query {
   readonly factories: ReadonlyArray<Factory>;
   readonly factory?: Maybe<Factory>;
   readonly taalFactories: ReadonlyArray<TaalFactory>;
+  readonly taalDayDatas: ReadonlyArray<TaalDayData>;
   readonly pair?: Maybe<Pair>;
   readonly pairSimple?: Maybe<PairSimple>;
   readonly pairSimples: ReadonlyArray<PairSimple>;
@@ -398,6 +399,14 @@ export interface QueryFactoryArgs {
 export interface QueryTaalFactoriesArgs {
   block?: Maybe<Block_Height>;
   first?: Maybe<Scalars['Int']>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+}
+
+
+export interface QueryTaalDayDatasArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<TaalDayData_OrderBy>;
   orderDirection?: Maybe<OrderDirection>;
   skip?: Maybe<Scalars['Int']>;
 }
@@ -549,6 +558,25 @@ export interface SubscriptionTokensArgs {
   orderDirection?: Maybe<OrderDirection>;
   skip?: Maybe<Scalars['Int']>;
   where?: Maybe<Token_Filter>;
+}
+
+export interface TaalDayData {
+  readonly __typename?: 'TaalDayData';
+  readonly id: Scalars['ID'];
+  readonly date: Scalars['Int'];
+  readonly dailyVolumeBNB: Scalars['BigDecimal'];
+  readonly dailyVolumeUSD: Scalars['BigDecimal'];
+  readonly dailyVolumeUntracked: Scalars['BigDecimal'];
+  readonly totalVolumeBNB: Scalars['BigDecimal'];
+  readonly totalLiquidityBNB: Scalars['BigDecimal'];
+  readonly totalVolumeUSD: Scalars['BigDecimal'];
+  readonly totalLiquidityUSD: Scalars['BigDecimal'];
+  readonly totalTransactions: Scalars['BigInt'];
+}
+
+export enum TaalDayData_OrderBy {
+  Id = 'id',
+  Date = 'date'
 }
 
 export interface TaalFactory {
@@ -714,6 +742,32 @@ export type TaalFactoryQuery = (
   & { readonly taalFactories: ReadonlyArray<(
     { readonly __typename?: 'TaalFactory' }
     & Pick<TaalFactory, 'totalLiquidityUSD'>
+  )> }
+);
+
+export type TaalDayData1QueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type TaalDayData1Query = (
+  { readonly __typename?: 'Query' }
+  & { readonly taalDayDatas: ReadonlyArray<(
+    { readonly __typename?: 'TaalDayData' }
+    & Pick<TaalDayData, 'totalTransactions'>
+  )> }
+);
+
+export type TaalDayData2QueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type TaalDayData2Query = (
+  { readonly __typename?: 'Query' }
+  & { readonly taalDayDatas: ReadonlyArray<(
+    { readonly __typename?: 'TaalDayData' }
+    & Pick<TaalDayData, 'dailyVolumeUSD'>
   )> }
 );
 
