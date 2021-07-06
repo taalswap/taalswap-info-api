@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Ethereum Blocks": {
-        "url": "https://api.thegraph.com/subgraphs/name/taalswap/blocks-ropsten",
+        "url": "https://api.thegraph.com/subgraphs/name/taalswap/blocks",
         "headers": {
           "user-agent": "JS GraphQL"
         },
