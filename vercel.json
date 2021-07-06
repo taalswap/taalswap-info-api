@@ -9,6 +9,14 @@
     {
       "source": "/api/tokens/:address",
       "destination": "/api/tokens/tokens"
+    },
+    {
+      "source": "/api/tvl",
+      "destination": "/api/tvl"
+    },
+    {
+      "source": "/api/daily",
+      "destination": "/api/daily"
     }
   ],
   "headers": [

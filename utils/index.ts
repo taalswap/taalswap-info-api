@@ -42,7 +42,10 @@ export async function getOneDayTransactionCnt(): Promise<number | undefined> {
     fetchPolicy: "cache-first"
   });
   const dayData = result?.data?.taalDayDatas;
-  return dayData[0].totalTransactions - dayData[1].totalTransactions;
+  if (dayData.length === 0)
+    return 0;
+  else
+    return dayData[0].totalTransactions - dayData[1].totalTransactions;
 }
 
 export async function getOneDayVolumeUSD(): Promise<number | undefined> {
@@ -53,7 +56,11 @@ export async function getOneDayVolumeUSD(): Promise<number | undefined> {
     },
     fetchPolicy: "cache-first"
   });
-  return result?.data?.taalDayDatas[0].dailyVolumeUSD;
+  const dayData = result?.data?.taalDayDatas;
+  if (dayData.length === 0)
+    return 0;
+  else
+    return dayData[0].dailyVolumeUSD;
 }
 
 export async function getTokenByAddress(address: string): Promise<Token> {
