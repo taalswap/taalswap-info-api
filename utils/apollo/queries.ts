@@ -30,6 +30,14 @@ export const GET_TVL = gql`
     }
 `;
 
+export const GET_ETH_PRICE = gql`
+    query EthPrice($limit: Int!) {
+        bundles(first: $limit) {
+            ethPrice
+        }
+    }
+`;
+
 export const GET_TRX = gql`
     query TaalDayData1($limit: Int!) {
         taalDayDatas(

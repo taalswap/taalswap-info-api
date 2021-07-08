@@ -1,7 +1,15 @@
 import BigNumber from "bignumber.js";
 import { BLACKLIST } from "./constants/blacklist";
 import { client } from "./apollo/client";
-import { GET_TRX, GET_TVL, GET_VOLUME_USD, PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS, TOP_PAIRS } from "./apollo/queries";
+import {
+  GET_ETH_PRICE,
+  GET_TRX,
+  GET_TVL,
+  GET_VOLUME_USD,
+  PAIRS_VOLUME_QUERY,
+  TOKEN_BY_ADDRESS,
+  TOP_PAIRS
+} from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
   PairsVolumeQuery,
@@ -31,6 +39,17 @@ export async function getTVL(): Promise<string | undefined> {
     fetchPolicy: "network-only"
   });
   return result?.data?.taalFactories?.[0]?.totalLiquidityUSD;
+}
+
+export async function getEthPrice(): Promise<string | undefined> {
+  const result = await client.query({
+    query: GET_ETH_PRICE,
+    variables: {
+      limit: 1
+    },
+    fetchPolicy: "network-only"
+  });
+  return result?.data?.bundles?.[0]?.ethPrice;
 }
 
 export async function getOneDayTransactionCnt(): Promise<number | undefined> {
