@@ -37,17 +37,17 @@ export async function getOneDayTransactionCnt(): Promise<number | undefined> {
   const result = await client.query({
     query: GET_TRX,
     variables: {
-      limit: 2
+      limit: 3
     },
     fetchPolicy: "cache-first"
   });
   const dayData = result?.data?.taalDayDatas;
   if (dayData.length === 0) {
     return 0;
-  } else if (dayData.length === 1) {
+  } else if (dayData.length < 3) {
     return dayData[0]?.totalTransactions
   } else {
-    return dayData[0]?.totalTransactions - dayData[1]?.totalTransactions;
+    return dayData[0]?.totalTransactions - dayData[2]?.totalTransactions
   }
 }
 
@@ -55,15 +55,17 @@ export async function getOneDayVolumeUSD(): Promise<number | undefined> {
   const result = await client.query({
     query: GET_VOLUME_USD,
     variables: {
-      limit: 1
+      limit: 3
     },
     fetchPolicy: "cache-first"
   });
   const dayData = result?.data?.taalDayDatas;
   if (dayData.length === 0)
     return 0;
-  else
+  else if (dayData.length < 3)
     return dayData[0].dailyVolumeUSD;
+  else
+    return dayData[0]?.totalTransactions - dayData[2]?.totalTransactions
 }
 
 export async function getTokenByAddress(address: string): Promise<Token> {
