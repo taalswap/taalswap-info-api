@@ -51,21 +51,23 @@ export async function getOneDayTransactionCnt(): Promise<number | undefined> {
   }
 }
 
-export async function getOneDayVolumeUSD(): Promise<number | undefined> {
+export async function getOneDayVolumeUSD(): Promise<string | undefined> {
   const result = await client.query({
     query: GET_VOLUME_USD,
     variables: {
-      limit: 3
+      limit: 2
     },
     fetchPolicy: "cache-first"
   });
   const dayData = result?.data?.taalDayDatas;
   if (dayData.length === 0)
-    return 0;
-  else if (dayData.length < 3)
+    return '0';
+  else if (dayData.length < 2)
     return dayData[0].dailyVolumeUSD;
-  else
-    return dayData[0]?.totalTransactions - dayData[2]?.totalTransactions
+  else {
+    const seconUSD = new BigNumber(dayData[1]?.dailyVolumeUSD)
+    return new BigNumber(dayData[0]?.dailyVolumeUSD).plus(seconUSD).toString()
+  }
 }
 
 export async function getTokenByAddress(address: string): Promise<Token> {
