@@ -1,6 +1,28 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/daily.ts": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "api/ethprice.ts": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "api/pairs.ts": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "api/summary.ts": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "api/tvl.ts": {
+      "memory": 3008,
+      "maxDuration": 60
+    }
+  },
   "rewrites": [
     {
       "source": "/api/tokens",
