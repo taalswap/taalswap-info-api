@@ -156,7 +156,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   }
 
   const yesterdayVolumeIndex =
-    pairVolumes?.reduce<{
+    await pairVolumes?.reduce<{
       [pairId: string]: { volumeToken0: BigNumber; volumeToken1: BigNumber; volumeUSD: BigNumber };
     }>((memo, pair) => {
       memo[pair.id] = {
