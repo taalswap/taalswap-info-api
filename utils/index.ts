@@ -21,6 +21,7 @@ import {
 } from "./generated/subgraph";
 import dayjs from "dayjs";
 
+
 const TOP_PAIR_LIMIT = 1000;
 export type Token = TokenQuery["token"];
 export type Pair = TopPairsQuery["pairs"][number];
@@ -66,9 +67,9 @@ export async function getOneDayTransactionCnt(): Promise<number | undefined> {
   if (dayData.length === 0) {
     return 0;
   } else if (dayData.length < 3) {
-    return dayData[0]?.totalTransactions
+    return dayData[0]?.totalTransactions;
   } else {
-    return dayData[0]?.totalTransactions - dayData[2]?.totalTransactions
+    return dayData[0]?.totalTransactions - dayData[2]?.totalTransactions;
   }
 }
 
@@ -82,12 +83,12 @@ export async function getOneDayVolumeUSD(): Promise<string | undefined> {
   });
   const dayData = result?.data?.taalDayDatas;
   if (dayData.length === 0)
-    return '0';
+    return "0";
   else if (dayData.length < 2)
     return dayData[0].dailyVolumeUSD;
   else {
-    const seconUSD = new BigNumber(dayData[1]?.dailyVolumeUSD)
-    return new BigNumber(dayData[0]?.dailyVolumeUSD).plus(seconUSD).toString()
+    const seconUSD = new BigNumber(dayData[1]?.dailyVolumeUSD);
+    return new BigNumber(dayData[0]?.dailyVolumeUSD).plus(seconUSD).toString();
   }
 }
 
@@ -111,8 +112,8 @@ export async function getTokenByAddress(address: string): Promise<Token> {
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
-  const utcCurrentTime = dayjs(new Date())
-  const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
+  const utcCurrentTime = dayjs(new Date());
+  const utcOneDayBack = utcCurrentTime.subtract(1, "day").unix();
   // const epochSecond = Math.round(new Date().getTime() / 1000);
   const firstBlock = await getBlockFromTimestamp(utcOneDayBack);
 
