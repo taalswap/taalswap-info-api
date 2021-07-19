@@ -2,12 +2,12 @@ import gql from "graphql-tag";
 import { blockClient } from "./client";
 
 export const GET_BLOCK = gql`
-  query blocks($timestamp: BigInt!) {
+  query blocks($timestampFrom: Int!, $timestampTo: Int!) {
     blocks(
       first: 1
       orderBy: timestamp
       orderDirection: asc
-      where: { timestamp_gte: $timestamp }
+      where: { timestamp_gt: $timestampFrom, timestamp_lt: $timestampTo }
     ) {
       id
       number
@@ -24,7 +24,8 @@ export async function getBlockFromTimestamp(timestamp: number): Promise<string |
   const result = await blockClient.query({
     query: GET_BLOCK,
     variables: {
-      timestamp: timestamp,
+      timestampFrom: timestamp,
+      timestampTo: timestamp + 600
     },
     fetchPolicy: "cache-first",
   });

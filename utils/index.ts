@@ -19,6 +19,7 @@ import {
   TopPairsQuery,
   TopPairsQueryVariables
 } from "./generated/subgraph";
+import dayjs from "dayjs";
 
 const TOP_PAIR_LIMIT = 1000;
 export type Token = TokenQuery["token"];
@@ -110,8 +111,10 @@ export async function getTokenByAddress(address: string): Promise<Token> {
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
-  const epochSecond = Math.round(new Date().getTime() / 1000);
-  const firstBlock = await getBlockFromTimestamp(epochSecond - 86400);
+  const utcCurrentTime = dayjs(new Date())
+  const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
+  // const epochSecond = Math.round(new Date().getTime() / 1000);
+  const firstBlock = await getBlockFromTimestamp(utcOneDayBack);
 
   if (!firstBlock) {
     throw new Error("Failed to fetch blocks from the subgraph");
