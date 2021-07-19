@@ -25,7 +25,6 @@ export default async function(req: VercelRequest, res: VercelResponse): Promise<
   try {
     const topPairs = await getTopPairs();
 
-    console.log('111111111', topPairs)
     const pairs = topPairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
       const pId = getAddress(pair.id);
       const t0Id = getAddress(pair.token0.id);
