@@ -149,6 +149,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     fetchPolicy: "cache-first"
   });
 
+  console.log('pairVolumes', pairVolumes)
   if (yesterdayVolumeErrors && yesterdayVolumeErrors.length > 0) {
     throw new Error(`Failed to get volume info for 24h ago from the subgraph`);
   }
@@ -169,7 +170,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     pairs?.map(
       (pair): MappedDetailedPair => {
         const yesterday = yesterdayVolumeIndex[pair.id];
-
+        console.log('yesterday', yesterday?.volumeUSD)
         return {
           ...pair,
           price:
