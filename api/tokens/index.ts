@@ -24,11 +24,12 @@ export default async function(req: VercelRequest, res: VercelResponse): Promise<
       for (const token of [pair.token0, pair.token1]) {
         const tId = getAddress(token.id);
         const liq = ethPrice * token.totalLiquidity * token.derivedETH
+        const price = token.derivedETH * ethPrice
         accumulator[tId] = {
           name: token.name,
           address: tId,
           symbol: token.symbol,
-          price: token.derivedUSD,
+          price: price.toString(),
           price_ETH: token.derivedETH,
           liquidity: liq.toString()
         };
