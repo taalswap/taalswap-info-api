@@ -113,7 +113,7 @@ export async function getTokenByAddress(address: string): Promise<Token> {
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const utcCurrentTime = dayjs(new Date());
-  const utcOneDayBack = utcCurrentTime.subtract(1, "day").unix();
+  const utcOneDayBack = utcCurrentTime.subtract(1, "day").startOf('minute').unix();
   // const epochSecond = Math.round(new Date().getTime() / 1000);
   const firstBlock = await getBlockFromTimestamp(utcOneDayBack);
 
@@ -147,7 +147,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
       pairIds: pairs.map((pair) => pair.id),
       blockNumber: +firstBlock
     },
-    fetchPolicy: "cache-first"
+    fetchPolicy: "no-cache"
   });
 
   console.log('pairVolumes', pairVolumes)
@@ -171,7 +171,10 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     pairs?.map(
       (pair): MappedDetailedPair => {
         const yesterday = yesterdayVolumeIndex[pair.id];
-        console.log('yesterday', yesterday?.volumeUSD)
+        console.log('=============')
+        console.log('yesterday', yesterday?.volumeUSD.toString())
+        console.log('pair', pair?.volumeUSD)
+        console.log(new BigNumber(pair?.volumeUSD).minus(yesterday?.volumeUSD).toString())
         return {
           ...pair,
           price:
