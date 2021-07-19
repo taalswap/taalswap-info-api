@@ -21,6 +21,10 @@
     "api/tvl.ts": {
       "memory": 3008,
       "maxDuration": 60
+    },
+    "api/tokens/index.ts": {
+      "memory": 3008,
+      "maxDuration": 60
     }
   },
   "rewrites": [
@@ -39,6 +43,10 @@
     {
       "source": "/api/daily",
       "destination": "/api/daily"
+    },
+    {
+      "source": "/api/pairs",
+      "destination": "/api/pairs"
     }
   ],
   "headers": [
