@@ -17,6 +17,7 @@ export default async function(req: VercelRequest, res: VercelResponse): Promise<
     const address = getAddress(req.query.address);
     const token = await getTokenByAddress(address.toLowerCase());
 
+
     return200(res, {
       updated_at: new Date().getTime(),
       data: {
