@@ -235,6 +235,7 @@ type Token {
     decimals: BigInt!
     derivedETH: BigDecimal!
     derivedUSD: BigDecimal!
+    totalLiquidity: BigDecimal!
     id: ID!
     name: String!
     symbol: String!

@@ -17,6 +17,7 @@ interface ReturnShape {
     quote_volume: string;
     liquidity: string;
     liquidity_ETH: string;
+    previous24hVolumeUSD: string;
   };
 }
 
@@ -41,7 +42,8 @@ export default async function(req: VercelRequest, res: VercelResponse): Promise<
         base_volume: pair.previous24hVolumeToken0,
         quote_volume: pair.previous24hVolumeToken1,
         liquidity: pair.reserveUSD,
-        liquidity_ETH: pair.reserveETH
+        liquidity_ETH: pair.reserveETH,
+        previous24hVolumeUSD: pair.previous24hVolumeUSD
       };
 
       return accumulator;

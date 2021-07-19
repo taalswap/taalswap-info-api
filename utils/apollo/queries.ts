@@ -6,6 +6,7 @@ export const PAIRS_VOLUME_QUERY = gql`
             id
             volumeToken0
             volumeToken1
+            volumeUSD
         }
     }
 `;
@@ -69,6 +70,7 @@ export const TOP_PAIRS = gql`
         symbol
         derivedETH
         derivedUSD
+        totalLiquidity
     }
 
     query TopPairs($limit: Int!, $excludeTokenIds: [String!]!) {
@@ -91,6 +93,7 @@ export const TOP_PAIRS = gql`
             volumeToken1
             reserveETH
             reserveUSD
+            volumeUSD
         }
     }
 `;

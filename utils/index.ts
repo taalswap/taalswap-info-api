@@ -28,6 +28,7 @@ export interface MappedDetailedPair extends Pair {
   price: string;
   previous24hVolumeToken0: string;
   previous24hVolumeToken1: string;
+  previous24hVolumeUSD: string;
 }
 
 export async function getTVL(): Promise<string | undefined> {
@@ -41,7 +42,7 @@ export async function getTVL(): Promise<string | undefined> {
   return result?.data?.taalFactories?.[0]?.totalLiquidityUSD;
 }
 
-export async function getEthPrice(): Promise<string | undefined> {
+export async function getEthPrice(): Promise<any | undefined> {
   const result = await client.query({
     query: GET_ETH_PRICE,
     variables: {
@@ -151,11 +152,12 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
 
   const yesterdayVolumeIndex =
     pairVolumes?.reduce<{
-      [pairId: string]: { volumeToken0: BigNumber; volumeToken1: BigNumber };
+      [pairId: string]: { volumeToken0: BigNumber; volumeToken1: BigNumber; volumeUSD: BigNumber };
     }>((memo, pair) => {
       memo[pair.id] = {
         volumeToken0: new BigNumber(pair.volumeToken0),
-        volumeToken1: new BigNumber(pair.volumeToken1)
+        volumeToken1: new BigNumber(pair.volumeToken1),
+        volumeUSD: new BigNumber(pair.volumeUSD)
       };
       return memo;
     }, {}) ?? {};
@@ -178,7 +180,11 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
           previous24hVolumeToken1:
             pair.volumeToken1 && yesterday?.volumeToken1
               ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
-              : new BigNumber(pair.volumeToken1).toString()
+              : new BigNumber(pair.volumeToken1).toString(),
+          previous24hVolumeUSD:
+            pair.volumeUSD && yesterday?.volumeUSD
+              ? new BigNumber(pair.volumeUSD).minus(yesterday.volumeUSD).toString()
+              : new BigNumber(pair.volumeUSD).toString()
         };
       }
     ) ?? []

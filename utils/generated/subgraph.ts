@@ -599,6 +599,7 @@ export interface Token {
   readonly id: Scalars['ID'];
   readonly name: Scalars['String'];
   readonly symbol: Scalars['String'];
+  readonly totalLiquidity: Scalars['BigDecimal'];
 }
 
 export interface Token_Filter {
@@ -715,7 +716,7 @@ export type PairsVolumeQuery = (
   { readonly __typename?: 'Query' }
   & { readonly pairVolumes: ReadonlyArray<(
     { readonly __typename?: 'Pair' }
-    & Pick<Pair, 'id' | 'volumeToken0' | 'volumeToken1'>
+    & Pick<Pair, 'id' | 'volumeToken0' | 'volumeToken1' | 'volumeUSD'>
   )> }
 );
 
@@ -773,7 +774,7 @@ export type TaalDayData2Query = (
 
 export type TokenInfoFragment = (
   { readonly __typename?: 'Token' }
-  & Pick<Token, 'id' | 'name' | 'symbol' | 'derivedETH' | 'derivedUSD'>
+  & Pick<Token, 'id' | 'name' | 'symbol' | 'derivedETH' | 'derivedUSD' | 'totalLiquidity'>
 );
 
 export type TopPairsQueryVariables = Exact<{
@@ -786,7 +787,7 @@ export type TopPairsQuery = (
   { readonly __typename?: 'Query' }
   & { readonly pairs: ReadonlyArray<(
     { readonly __typename?: 'Pair' }
-    & Pick<Pair, 'id' | 'reserve0' | 'reserve1' | 'volumeToken0' | 'volumeToken1' | 'reserveETH' | 'reserveUSD'>
+    & Pick<Pair, 'id' | 'reserve0' | 'reserve1' | 'volumeToken0' | 'volumeToken1' | 'reserveETH' | 'reserveUSD' | 'volumeUSD'>
     & { readonly token0: (
       { readonly __typename?: 'Token' }
       & TokenInfoFragment
