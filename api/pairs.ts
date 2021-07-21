@@ -8,9 +8,11 @@ interface ReturnShape {
     pair_address: string;
     base_name: string;
     base_symbol: string;
+    base_decimals: string;
     base_address: string;
     quote_name: string;
     quote_symbol: string;
+    quote_decimals: string;
     quote_address: string;
     price: string;
     base_volume: string;
@@ -34,9 +36,11 @@ export default async function(req: VercelRequest, res: VercelResponse): Promise<
         pair_address: pId,
         base_name: pair.token0.name,
         base_symbol: pair.token0.symbol,
+        base_decimals: pair.token0.decimals,
         base_address: t0Id,
         quote_name: pair.token1.name,
         quote_symbol: pair.token1.symbol,
+        quote_decimals: pair.token1.decimals,
         quote_address: t1Id,
         price: pair.price,
         base_volume: pair.previous24hVolumeToken0,

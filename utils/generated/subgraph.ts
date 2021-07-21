@@ -774,7 +774,7 @@ export type TaalDayData2Query = (
 
 export type TokenInfoFragment = (
   { readonly __typename?: 'Token' }
-  & Pick<Token, 'id' | 'name' | 'symbol' | 'derivedETH' | 'derivedUSD' | 'totalLiquidity'>
+  & Pick<Token, 'id' | 'name' | 'symbol' | 'derivedETH' | 'derivedUSD' | 'totalLiquidity' | 'decimals'>
 );
 
 export type TopPairsQueryVariables = Exact<{

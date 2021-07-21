@@ -68,6 +68,7 @@ export const TOP_PAIRS = gql`
         id
         name
         symbol
+        decimals
         derivedETH
         derivedUSD
         totalLiquidity
