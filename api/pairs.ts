@@ -6,6 +6,8 @@ import { return200, return500 } from "../utils/response";
 interface ReturnShape {
   [tokenIds: string]: {
     pair_address: string;
+    reserve0: string;
+    reserve1: string;
     base_name: string;
     base_symbol: string;
     base_decimals: string;
@@ -34,6 +36,8 @@ export default async function(req: VercelRequest, res: VercelResponse): Promise<
 
       accumulator[`${t0Id}_${t1Id}`] = {
         pair_address: pId,
+        reserve0: pair.reserve0,
+        reserve1: pair.reserve1,
         base_name: pair.token0.name,
         base_symbol: pair.token0.symbol,
         base_decimals: pair.token0.decimals,
