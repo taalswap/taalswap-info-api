@@ -114,7 +114,6 @@ export async function getTokenByAddress(address: string): Promise<Token> {
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const utcCurrentTime = dayjs(new Date());
   const utcOneDayBack = utcCurrentTime.subtract(1, "day").startOf('minute').unix();
-  // const epochSecond = Math.round(new Date().getTime() / 1000);
   const firstBlock = await getBlockFromTimestamp(utcOneDayBack);
 
   if (!firstBlock) {
