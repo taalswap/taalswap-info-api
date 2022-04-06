@@ -60,11 +60,30 @@ type Pair {
     volumeUSD: BigDecimal!
 }
 
+type Swap {
+    id: ID!
+    pair: Pair!
+    transaction: Transaction!
+    timestamp: BigInt!
+    sender: Bytes!
+    from: Bytes!
+    to: Bytes!
+    amount0In: BigDecimal!
+    amount1In: BigDecimal!
+    amount0Out: BigDecimal!
+    amount1Out: BigDecimal!
+    amountUSD: BigDecimal!
+}
+
 type PairSimple {
     address: Bytes!
     id: ID!
     token0: Token!
     token1: Token!
+}
+
+type Transaction {
+    id: ID!
 }
 
 type Query {
@@ -117,6 +136,13 @@ type Query {
         block: Block_height,
         id: ID!
     ): Pair
+    swaps(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 5,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+    ): Swap
     pairSimple(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -318,6 +344,10 @@ enum Token_orderBy {
     id
     name
     symbol
+}
+
+enum Swap_orderBy {
+    timestamp
 }
 
 enum _SubgraphErrorPolicy_ {

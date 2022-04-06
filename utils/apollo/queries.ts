@@ -51,6 +51,31 @@ export const GET_TRX = gql`
     }
 `;
 
+export const GET_TRANSACTIONS = gql`
+    query Swaps($limit: Int!) {
+        swaps(first: $limit
+            orderBy: timestamp
+            orderDirection: desc) {
+            id
+            pair{
+                id
+            }
+            transaction{
+                id
+            }
+            sender
+            from
+            to
+            amount0In
+            amount0Out
+            amount1In
+            amount1Out
+            amountUSD
+            timestamp
+        }
+    }
+`;
+
 export const GET_VOLUME_USD = gql`
     query TaalDayData2($limit: Int!) {
         taalDayDatas(

@@ -351,6 +351,7 @@ export interface Query {
   readonly taalFactories: ReadonlyArray<TaalFactory>;
   readonly taalDayDatas: ReadonlyArray<TaalDayData>;
   readonly pair?: Maybe<Pair>;
+  readonly swaps?: Maybe<Swap>;
   readonly pairSimple?: Maybe<PairSimple>;
   readonly pairSimples: ReadonlyArray<PairSimple>;
   readonly pairs: ReadonlyArray<Pair>;
@@ -415,6 +416,14 @@ export interface QueryTaalDayDatasArgs {
 export interface QueryPairArgs {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
+}
+
+
+export interface QuerySwapsArgs {
+  block?: Maybe<Block_Height>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Swap_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
 }
 
 
@@ -560,6 +569,26 @@ export interface SubscriptionTokensArgs {
   where?: Maybe<Token_Filter>;
 }
 
+export interface Swap {
+  readonly __typename?: 'Swap';
+  readonly id: Scalars['ID'];
+  readonly pair: Pair;
+  readonly transaction: Transaction;
+  readonly timestamp: Scalars['BigInt'];
+  readonly sender: Scalars['Bytes'];
+  readonly from: Scalars['Bytes'];
+  readonly to: Scalars['Bytes'];
+  readonly amount0In: Scalars['BigDecimal'];
+  readonly amount1In: Scalars['BigDecimal'];
+  readonly amount0Out: Scalars['BigDecimal'];
+  readonly amount1Out: Scalars['BigDecimal'];
+  readonly amountUSD: Scalars['BigDecimal'];
+}
+
+export enum Swap_OrderBy {
+  Timestamp = 'timestamp'
+}
+
 export interface TaalDayData {
   readonly __typename?: 'TaalDayData';
   readonly id: Scalars['ID'];
@@ -596,10 +625,10 @@ export interface Token {
   readonly decimals: Scalars['BigInt'];
   readonly derivedETH: Scalars['BigDecimal'];
   readonly derivedUSD: Scalars['BigDecimal'];
+  readonly totalLiquidity: Scalars['BigDecimal'];
   readonly id: Scalars['ID'];
   readonly name: Scalars['String'];
   readonly symbol: Scalars['String'];
-  readonly totalLiquidity: Scalars['BigDecimal'];
 }
 
 export interface Token_Filter {
@@ -674,6 +703,11 @@ export enum Token_OrderBy {
   Symbol = 'symbol'
 }
 
+export interface Transaction {
+  readonly __typename?: 'Transaction';
+  readonly id: Scalars['ID'];
+}
+
 export interface _Block_ {
   readonly __typename?: '_Block_';
   /** The hash of the block */
@@ -746,6 +780,19 @@ export type TaalFactoryQuery = (
   )> }
 );
 
+export type EthPriceQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type EthPriceQuery = (
+  { readonly __typename?: 'Query' }
+  & { readonly bundles: ReadonlyArray<(
+    { readonly __typename?: 'Bundle' }
+    & Pick<Bundle, 'ethPrice'>
+  )> }
+);
+
 export type TaalDayData1QueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -756,6 +803,26 @@ export type TaalDayData1Query = (
   & { readonly taalDayDatas: ReadonlyArray<(
     { readonly __typename?: 'TaalDayData' }
     & Pick<TaalDayData, 'totalTransactions'>
+  )> }
+);
+
+export type SwapsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type SwapsQuery = (
+  { readonly __typename?: 'Query' }
+  & { readonly swaps?: Maybe<(
+    { readonly __typename?: 'Swap' }
+    & Pick<Swap, 'id' | 'sender' | 'from' | 'to' | 'amount0In' | 'amount0Out' | 'amount1In' | 'amount1Out' | 'amountUSD' | 'timestamp'>
+    & { readonly pair: (
+      { readonly __typename?: 'Pair' }
+      & Pick<Pair, 'id'>
+    ), readonly transaction: (
+      { readonly __typename?: 'Transaction' }
+      & Pick<Transaction, 'id'>
+    ) }
   )> }
 );
 
@@ -774,7 +841,7 @@ export type TaalDayData2Query = (
 
 export type TokenInfoFragment = (
   { readonly __typename?: 'Token' }
-  & Pick<Token, 'id' | 'name' | 'symbol' | 'derivedETH' | 'derivedUSD' | 'totalLiquidity' | 'decimals'>
+  & Pick<Token, 'id' | 'name' | 'symbol' | 'decimals' | 'derivedETH' | 'derivedUSD' | 'totalLiquidity'>
 );
 
 export type TopPairsQueryVariables = Exact<{

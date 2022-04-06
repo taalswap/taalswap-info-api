@@ -8,6 +8,7 @@ import {
   GET_VOLUME_USD,
   PAIRS_VOLUME_QUERY,
   TOKEN_BY_ADDRESS,
+  GET_TRANSACTIONS,
   TOP_PAIRS
 } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
@@ -109,6 +110,18 @@ export async function getTokenByAddress(address: string): Promise<Token> {
   }
 
   return token;
+}
+
+export async function getTransactions(): Promise<number | undefined> {
+  const result = await client.query({
+    query: GET_TRANSACTIONS,
+    variables: {
+      limit: 5
+    },
+    fetchPolicy: "cache-first"
+  });
+  const transactions = result?.data?.swaps;
+  return transactions;
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
