@@ -52,26 +52,58 @@ export const GET_TRX = gql`
 `;
 
 export const GET_TRANSACTIONS = gql`
-    query Swaps($limit: Int!) {
-        swaps(first: $limit
-            orderBy: timestamp
-            orderDirection: desc) {
-            id
-            pair{
+    query Transactions($limit: Int!) {
+        mints(first: $limit, orderBy: timestamp, orderDirection: desc) {
+            transaction {
                 id
+                timestamp
             }
-            transaction{
-                id
+            pair {
+                token0 {
+                    id
+                    symbol
+                }
+                token1 {
+                    id
+                    symbol
+                }
             }
-            sender
-            from
-            to
-            amount0In
-            amount0Out
-            amount1In
-            amount1Out
             amountUSD
-            timestamp
+        }
+        burns(first: $limit, orderBy: timestamp, orderDirection: desc) {
+            transaction {
+                id
+                timestamp
+            }
+            pair {
+                token0 {
+                    id
+                    symbol
+                }
+                token1 {
+                    id
+                    symbol
+                }
+            }
+            amountUSD
+        }
+        swaps(first: $limit, orderBy: timestamp, orderDirection: desc) {
+            transaction {
+                id
+                timestamp
+            }
+            id
+            pair {
+                token0 {
+                    id
+                    symbol
+                }
+                token1 {
+                    id
+                    symbol
+                }
+            }
+            amountUSD
         }
     }
 `;

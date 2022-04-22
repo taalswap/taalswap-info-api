@@ -75,6 +75,22 @@ type Swap {
     amountUSD: BigDecimal!
 }
 
+type Mint {
+    id: ID!
+    pair: Pair!
+    transaction: Transaction!
+    timestamp: BigInt!
+    amountUSD: BigDecimal!
+}
+
+type Burn {
+    id: ID!
+    pair: Pair!
+    transaction: Transaction!
+    timestamp: BigInt!
+    amountUSD: BigDecimal!
+}
+
 type PairSimple {
     address: Bytes!
     id: ID!
@@ -84,6 +100,7 @@ type PairSimple {
 
 type Transaction {
     id: ID!
+    timestamp: BigInt!
 }
 
 type Query {
@@ -143,6 +160,20 @@ type Query {
         orderBy: Swap_orderBy,
         orderDirection: OrderDirection,
     ): Swap
+    burns(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 5,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+    ): Burn
+    mints(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 5,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+    ): Mint
     pairSimple(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,

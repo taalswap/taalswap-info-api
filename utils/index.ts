@@ -112,16 +112,25 @@ export async function getTokenByAddress(address: string): Promise<Token> {
   return token;
 }
 
-export async function getTransactions(): Promise<number | undefined> {
+export async function getTransactions(limit: number): Promise<any | undefined> {
   const result = await client.query({
     query: GET_TRANSACTIONS,
     variables: {
-      limit: 5
+      limit: limit
     },
     fetchPolicy: "cache-first"
   });
-  const transactions = result?.data?.swaps;
-  return transactions;
+
+  const ret = [];
+
+  ret.push(...result?.data?.swaps);
+  ret.push(...result?.data?.mints);
+  ret.push(...result?.data?.burns);
+
+  const tmp = ret.sort((a: any, b: any): any => {
+    return b.transaction.timestamp - a.transaction.timestamp;
+  });
+  return tmp.slice(0, limit);
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
