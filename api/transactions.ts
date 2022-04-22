@@ -5,7 +5,7 @@ import { getTransactions } from "../utils";
 export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const limit: any = req.query.limit ? req.query.limit : '5';
-    return200(res, { updated_at: new Date().getTime(), data: {tvl: await getTransactions(parseInt(limit)) }});
+    return200(res, { updated_at: new Date().getTime(), data: {transactions: await getTransactions(parseInt(limit)) }});
   } catch (error) {
     return500(res, error);
   }
