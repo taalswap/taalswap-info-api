@@ -1,6 +1,6 @@
 {
   "name": "taalswap-info-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Serverless API implementation for TaalSwap on-chain data query.",
   "repository": "https://github.com/taalswap/taalswap-info-api.git",
   "author": "TaalSwap",
