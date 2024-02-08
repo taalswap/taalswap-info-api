@@ -47,6 +47,10 @@
     {
       "source": "/api/pairs",
       "destination": "/api/pairs"
+    },
+    {
+      "source": "/api/transactions/:limit",
+      "destination": "/api/transactions"
     }
   ],
   "headers": [
