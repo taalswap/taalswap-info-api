@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "TaalSwap Exchange LITE": {
-        "url": "https://api.thegraph.com/subgraphs/name/taalswap/exchange",
+        "url": "https://gateway-arbitrum.network.thegraph.com/api/1765e0cfde3ad7e0e33c68cb0c3ddb15/subgraphs/id/7T2Z8RmQ4tkAeZtg9rmMHZpTNSXhPjX8k7vZfS5PY8vT",
         "headers": {
           "user-agent": "JS GraphQL"
         },

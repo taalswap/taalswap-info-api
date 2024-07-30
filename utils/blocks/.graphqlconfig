@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Ethereum Blocks": {
-        "url": "https://api.thegraph.com/subgraphs/name/taalswap/blocks",
+        "url": "https://gateway-arbitrum.network.thegraph.com/api/1765e0cfde3ad7e0e33c68cb0c3ddb15/subgraphs/id/HeBTP8LPmBiW8AQjuJ1fNNoNHfHji1V38Dfxkhsufoq",
         "headers": {
           "user-agent": "JS GraphQL"
         },
